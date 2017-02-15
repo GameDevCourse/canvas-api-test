@@ -7,17 +7,30 @@ window.onload = () => {
     var container = new DisplayObjectContainer();
     var textfield = new TextField();
     textfield.x = 0;
+    textfield.sclarX = 2;
     textfield.y = 0;
+    textfield.color = "#FF0000"
+    //textfield.font = "40px Arial";
+    textfield.fontsize=40;
+    textfield.fontname ="Arial";
     textfield.text = "Hello,world";
     var bitmap1 = new Bitmap();
     bitmap1.x = 0;
     bitmap1.y = 0;
-    var img = document.createElement("img");
-    img.src = "weapan001.png";
-    bitmap1.image = img;
+    bitmap1.sclarX = 2;
+    bitmap1.sclarY = 2;
+    var image = document.createElement("img");
+    image.src = "weapan001.png";
+    bitmap1.image = image;
     container.addchild(bitmap1);
     container.addchild(textfield);
     container.draw(context2d);
+    setInterval(() => {
+        context2d.clearRect(0, 0, canvas.width, canvas.height);
+        // textfield.x++;
+        bitmap1.x++;
+        container.draw(context2d);
+    }, 100)
 };
 
 
@@ -34,6 +47,7 @@ class DisplayObjectContainer implements DrawAble {
     draw(canvas: CanvasRenderingContext2D) {
         for (var child of this.list) {
             child.draw(canvas);
+           // console.log(this.list.indexOf(child));
         }
     }
 }
@@ -42,23 +56,42 @@ class DisplayObject implements DrawAble {
 
     x: number = 0;
     y: number = 0;
+    sclarX: number = 1;
+    sclarY: number = 1;
     draw(canvas: CanvasRenderingContext2D) { }
 }
 
 class TextField extends DisplayObject {
     text: string = "";
-
+    color: string = "";
+    fontsize: number = 10;
+    fontname: string = "";
     draw(canvas: CanvasRenderingContext2D) {
-        canvas.fillText(this.text, this.x, this.y + 10);
+        canvas.fillStyle = this.color;
+        //console.log(canvas.font);
+        canvas.font = this.fontsize.toString()+"px "+this.fontname.toString();;
+        canvas.fillText(this.text, this.x, this.y + this.fontsize);
     }
 }
 
 class Bitmap extends DisplayObject {
-    image: HTMLImageElement = null;
-
+    private img: HTMLImageElement = null;
+    private dirtyflag: boolean = true;
+    public set image(image: HTMLImageElement) { this.img = image; this.dirtyflag = true; }
     draw(canvas: CanvasRenderingContext2D) {
-        this.image.onload = () => {
-            canvas.drawImage(this.image, this.x, this.y);
+        if (!this.dirtyflag) {
+            // canvas.drawImage(this.img, this.x, this.y);
+            canvas.drawImage(this.img, this.x, this.y, this.img.width * this.sclarX, this.img.height * this.sclarY);
+            // canvas.drawImage(this.img, this.x, this.y, this.img.width, this.img.height,
+            //     this.sclarX, this.sclarY, this.img.width * this.sclarX, this.img.height * this.sclarY);
+        }
+        this.img.onload = () => {
+            canvas.scale
+            // canvas.drawImage(this.img, this.x, this.y, this.img.width, this.img.height,
+            //     this.sclarX, this.sclarY, this.img.width * this.sclarX, this.img.height * this.sclarY);
+            canvas.drawImage(this.img, this.x, this.y, this.img.width * this.sclarX, this.img.height * this.sclarY);
+            this.dirtyflag = false;
+            //console.log("abc");
         }
     }
 }
