@@ -1,3 +1,4 @@
+
 window.onload = () => {
     //alert("1111111");
     var canvas = document.getElementById("context") as HTMLCanvasElement;
@@ -35,7 +36,6 @@ window.onload = () => {
         container.draw(context2d);
     }, 100)
 };
-
 
 interface DrawAble {
     draw(canvas: CanvasRenderingContext2D);
@@ -88,7 +88,7 @@ class Bitmap extends DisplayObject {
             canvas.drawImage(this.img, this.x, this.y, this.img.width * this.sclarX, this.img.height * this.sclarY);
         }
         this.img.onload = () => {
-            canvas.scale
+            //canvas.scale
             // canvas.drawImage(this.img, this.x, this.y, this.img.width, this.img.height,
             //     this.sclarX, this.sclarY, this.img.width * this.sclarX, this.img.height * this.sclarY);
             canvas.drawImage(this.img, this.x, this.y, this.img.width * this.sclarX, this.img.height * this.sclarY);

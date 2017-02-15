@@ -103,7 +103,7 @@ var Bitmap = (function (_super) {
             canvas.drawImage(this.img, this.x, this.y, this.img.width * this.sclarX, this.img.height * this.sclarY);
         }
         this.img.onload = function () {
-            canvas.scale;
+            //canvas.scale
             // canvas.drawImage(this.img, this.x, this.y, this.img.width, this.img.height,
             //     this.sclarX, this.sclarY, this.img.width * this.sclarX, this.img.height * this.sclarY);
             canvas.drawImage(_this.img, _this.x, _this.y, _this.img.width * _this.sclarX, _this.img.height * _this.sclarY);
