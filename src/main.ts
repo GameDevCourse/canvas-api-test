@@ -47,6 +47,14 @@ class DisplayObjectContainer implements DrawAble {
     addchild(child: DrawAble) {
         this.list.push(child);
     }
+    removechild(child: DrawAble) {
+        for(var ele of this.list){
+            if(ele==child){
+                var index = this.list.indexOf(child);
+                this.list.splice(index);
+            }
+        }
+    }
     draw(canvas: CanvasRenderingContext2D) {
         for (var child of this.list) {
             child.draw(canvas);

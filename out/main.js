@@ -47,6 +47,15 @@ var DisplayObjectContainer = (function () {
     DisplayObjectContainer.prototype.addchild = function (child) {
         this.list.push(child);
     };
+    DisplayObjectContainer.prototype.removechild = function (child) {
+        for (var _i = 0, _a = this.list; _i < _a.length; _i++) {
+            var ele = _a[_i];
+            if (ele == child) {
+                var index = this.list.indexOf(child);
+                this.list.splice(index);
+            }
+        }
+    };
     DisplayObjectContainer.prototype.draw = function (canvas) {
         for (var _i = 0, _a = this.list; _i < _a.length; _i++) {
             var child = _a[_i];
